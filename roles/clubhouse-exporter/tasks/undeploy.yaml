@@ -2,7 +2,7 @@
 
 # Go...
 
-- name: Deleting namespace '{{ nx_namespace }}'
+- name: Deleting namespace '{{ ce_namespace }}'
   k8s:
     state: absent
     definition: "{{ lookup('template', 'namespace.yaml.j2') }}"

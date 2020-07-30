@@ -25,9 +25,9 @@
 - block:
 
   - include_tasks: deploy.yaml
-    when: nx_state|string == 'present'
+    when: ce_state|string == 'present'
   - include_tasks: undeploy.yaml
-    when: nx_state|string == 'absent'
+    when: ce_state|string == 'absent'
 
   module_defaults:
     group/k8s:
