@@ -1,0 +1,23 @@
+---
+
+# Deploy (or un-deploy)?
+# One of 'present' or 'absent'.
+ce_state: present
+
+# Schedule (02:20 Tu-Sa)
+ce_schedule: '20 2 * * 2-6'
+
+# AWS S3 bucket name
+ce_s3_bucket: im-clubhouse
+
+#------------------------------------------------------------------------------
+
+# Picked up from the environment
+# (typically injected by AWX/Tower)...
+
+# Clubhouse token (injected with clubhouse secret)
+clubhouse_api_token: "{{ lookup('env', 'CLUBHOUSE_API_TOKEN') }}"
+
+aws_access_key_id: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
+aws_secret_access_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
+aws_default_region: eu-central-1

@@ -1,0 +1,55 @@
+---
+kind: CronJob
+apiVersion: batch/v1beta1
+metadata:
+  name: clubhouse
+  namespace: {{ ce_namespace }}
+spec:
+  schedule: '{{ ce_schedule }}'
+  successfulJobsHistoryLimit: 1
+  startingDeadlineSeconds: 180
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            name: clubhouse
+        spec:
+          serviceAccountName: clubhouse
+
+          # A 'preferred' (not guaranteed)
+          # node selection affinity...
+          affinity:
+            nodeAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 1
+                preference:
+                  matchExpressions:
+                  - key: purpose
+                    operator: In
+                    values:
+                    - {{ ce_node_purpose }}
+
+          containers:
+          - image: informaticsmatters/clubhouse-exporter:{{ ce_image_tag }}
+            name: postgres-backup
+            imagePullPolicy: IfNotPresent
+            terminationMessagePolicy: FallbackToLogsOnError
+            resources:
+              limits:
+                cpu: {{ ce_cpu_limit }}
+                memory: {{ ce_mem_limit }}
+              requests:
+                cpu: {{ ce_cpu_request }}
+                memory: {{ ce_mem_request }}
+            env:
+            - name: CLUBHOUSE_API_TOKEN
+              value: '{{ clubhouse_api_token }}'
+            - name: BUCKET_NAME
+              value: '{{ ce_s3_bucket }}'
+            - name: AWS_ACCESS_KEY_ID
+              value: '{{ aws_access_key_id }}'
+            - name: AWS_SECRET_ACCESS_KEY
+              value: '{{ aws_secret_access_key }}'
+          restartPolicy: Never

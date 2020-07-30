@@ -1,0 +1,21 @@
+---
+
+# Namespace
+ce_namespace: clubhouse-exporter
+
+# The NGINX version.
+ce_image_tag: '2020.1'
+
+# CPU and Memory requests and limits
+ce_cpu_request: 500m
+ce_cpu_limit: 500m
+ce_mem_request: 64Mi
+ce_mem_limit: 64Mi
+
+# A request for the node type to deploy to.
+ce_node_purpose: application
+ce_sa_psp: im-core-unrestricted
+
+# General variables
+
+wait_timeout: 120

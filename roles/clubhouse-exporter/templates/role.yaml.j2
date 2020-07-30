@@ -1,0 +1,11 @@
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: ce-psp-unrestricted
+  namespace: "{{ ce_namespace }}"
+rules:
+- apiGroups: ['policy']
+  resources: ['podsecuritypolicies']
+  verbs: ['use']
+  resourceNames: ['{{ ce_sa_psp }}']

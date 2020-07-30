@@ -1,0 +1,27 @@
+---
+
+- name: Assert control variables
+  assert:
+    that:
+    - aws_access_key_id|string|length > 0
+    - aws_secret_access_key|string|length > 0
+    - clubhouse_api_token|string|length > 0
+    - ce_s3_bucket|string|length > 0
+
+- name: Creating namespace '{{ ce_namespace }}'
+  k8s:
+    definition: "{{ lookup('template', '{{ item }}.yaml.j2') }}"
+    wait: yes
+  loop:
+  - namespace
+  - serviceaccount
+  - role
+  - rolebinding-ce-sa
+
+- name: Deploy
+  k8s:
+    definition: "{{ lookup('template', '{{ item }}.yaml.j2') }}"
+    wait: yes
+    wait_timeout: "{{ wait_timeout }}"
+  loop:
+  - cronjob
