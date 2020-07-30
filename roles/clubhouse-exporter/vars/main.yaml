@@ -4,7 +4,7 @@
 ce_namespace: clubhouse-exporter
 
 # The NGINX version.
-ce_image_tag: '2020.1'
+ce_image_tag: 'stable'
 
 # CPU and Memory requests and limits
 ce_cpu_request: 500m

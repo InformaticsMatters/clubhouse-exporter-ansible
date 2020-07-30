@@ -6,3 +6,6 @@
 
 rules:
   indentation: {spaces: 2, indent-sequences: false}
+
+ignore: |
+  roles/clubhouse-exporter/templates/cronjob.yaml.j2

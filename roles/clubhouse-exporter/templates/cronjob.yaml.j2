@@ -34,7 +34,11 @@ spec:
           containers:
           - image: informaticsmatters/clubhouse-exporter:{{ ce_image_tag }}
             name: postgres-backup
+{% if ce_image_tag in ['latest', 'stable'] %}
+            imagePullPolicy: Always
+{% else %}
             imagePullPolicy: IfNotPresent
+{% endif %}
             terminationMessagePolicy: FallbackToLogsOnError
             resources:
               limits:
