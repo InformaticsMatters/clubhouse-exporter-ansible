@@ -1,6 +1,7 @@
 # Clubhouse Exporter Orchestration (Ansible)
 
-[![Build Status](https://travis-ci.com/InformaticsMatters/clubhouse-exporter-ansible.svg?branch=master)](https://travis-ci.com/InformaticsMatters/clubhouse-exporter-ansible)
+![lint](https://github.com/InformaticsMatters/clubhouse-exporter-ansible/workflows/lint/badge.svg)
+
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/informaticsmatters/clubhouse-exporter-ansible)
 
 A playbook and Role to deploy the Clubhosue Exporter (**CronJob),
