@@ -10,10 +10,23 @@
 
 - name: Creating namespace '{{ ce_namespace }}'
   k8s:
+    definition: "{{ lookup('template', 'namespace.yaml.j2') }}"
+    wait: yes
+
+- name: Create DockerHub image pull secret
+  k8s:
+    definition: "{{ lookup('template', 'secret-dh-imagepull.yaml.j2') }}"
+    wait: yes
+  vars:
+    pull_namespace: "{{ ce_namespace }}"
+    pull_secret: "{{ ce_dockerhub_pullsecret }}"
+  when: ce_dockerhub_pullsecret|string|length > 0
+
+- name: Creating namespace material
+  k8s:
     definition: "{{ lookup('template', '{{ item }}.yaml.j2') }}"
     wait: yes
   loop:
-  - namespace
   - serviceaccount
   - role
   - rolebinding-ce-sa

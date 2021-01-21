@@ -10,3 +10,4 @@ rules:
 ignore: |
   .github/
   roles/clubhouse-exporter/templates/cronjob.yaml.j2
+  roles/clubhouse-exporter/templates/serviceaccount.yaml.j2
